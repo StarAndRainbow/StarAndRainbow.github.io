@@ -1,2 +1,33 @@
-<p>Hello 大家好</p>
-<p>我是lx，这是我的个人网站。 </p>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lx</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 添加 Markdown 解析器 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 添加代码高亮 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/highlight.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>技术博客</h2>
+            <ul class="nav-menu" id="nav-menu">
+                <!-- 菜单内容将由 JavaScript 动态生成 -->
+            </ul>
+        </div>
+        <div class="main-content" id="main-content">
+            <!-- 文章内容将由 JavaScript 动态加载 -->
+        </div>
+    </div>
+    <!-- 先定义一个全局变量来存储菜单数据 -->
+    <script>let menuConfig;</script>
+    <!-- 加载菜单配置 -->
+    <script src="menu.js"></script>
+    <!-- 然后加载主脚本 -->
+    <script src="script.js"></script>
+</body>
+</html>
