@@ -547,3 +547,4 @@ android 系统的和自己的比较，多了很多判断，细节性的处理，
 涉及到的类
 
 ![](./img/lifecycler类图.png)
+![](https://note.youdao.com/yws/public/resource/f44d119415be8073ae2e2169c5e9236a/xmlnote/WEBRESOURCEfbb42b3a1290bbcb2697b051102e3e03/30224)
