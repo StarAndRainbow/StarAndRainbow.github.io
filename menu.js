@@ -13,9 +13,9 @@ menuConfig = {
                 {
                     "id": "lifecycler",
                     "title": "lifecycler",
-                    "file": "posts/view/lifecycler原理.md"
+                    "file": "posts/view/lifecycle原理.md"
                 }
             ]
         }
     ]
-}; 
+};
