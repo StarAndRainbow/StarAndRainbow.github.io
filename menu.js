@@ -7,13 +7,13 @@ menuConfig = {
             "file": "posts/home.md"
         },
         {
-            "id": "development",
-            "title": "开发技术",
+            "id": "android",
+            "title": "android开发",
             "children": [
                 {
-                    "id": "android",
-                    "title": "android",
-                    "file": "posts/view/自定义控件.md"
+                    "id": "lifecycler",
+                    "title": "lifecycler",
+                    "file": "posts/view/lifecycler原理.md"
                 }
             ]
         }
