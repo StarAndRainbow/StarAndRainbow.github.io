@@ -15,7 +15,21 @@ menuConfig = {
                     "title": "lifecycler",
                     "file": "posts/view/lifecycle原理.md"
                 }
-            ]
-        }
+            ],
+
+        },
+        {
+            "id": "library",
+            "title": "库",
+            "children": [
+                {
+                    "id": "dagger2",
+                    "title": "dagger2",
+                    "file": "posts/view/dagger2用法.md"
+                }
+            ],
+
+        },
+
     ]
 };
