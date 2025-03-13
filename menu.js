@@ -21,9 +21,6 @@ menuConfig = {
                      "file": "posts/view/fragment怎么被activity管理的.md"
                 },
             ],
-            "children": [
-
-            ],
         },
         {
             "id": "library",
