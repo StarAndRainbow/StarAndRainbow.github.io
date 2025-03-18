@@ -14,11 +14,14 @@ menuConfig = {
                     "id": "lifecycler",
                     "title": "lifecycler",
                     "file": "posts/view/lifecycle原理.md"
-                },
-                 {
+                },{
                      "id": "fragment1",
                      "title": "fragment怎么被activity管理的",
                      "file": "posts/view/fragment怎么被activity管理的.md"
+                },{
+                     "id": "myers",
+                     "title": "myers白话文",
+                     "file": "posts/view/myers原理.md"
                 },
             ],
         },
