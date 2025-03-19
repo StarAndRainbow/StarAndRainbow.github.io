@@ -443,29 +443,15 @@ mMaxScheduledGeneration。这里的recyclerview1.2.1没有进行原子性操作�
 
 子线程实则是开启了一个线程池，两个固定线程，如果有多的任务进入LinkedBlockingQueue队列。
 
-
-
-
-
-
-
 顺带提一口，这里有一个点，这里用到了算法，虽然说是比较高效的差分算法。但是每次数据改变都会进行两个数据集合的计算。在列表数据量比较多的情况下，会消耗cpu资源
-
-
 
 item
 
-![](/Users/mac/Desktop/blog/diffUtil/img/item.png)
-
-
+![](./img/item.png)
 
 已经放不下了，这个item内容不用管它，item里面有的是互斥隐藏显示的，这里只是为了证明内容多
 
-
-
 我项目中的item大量equals判断
-
-
 
 ```java
   @Override
@@ -517,8 +503,6 @@ item
 怎么处理
 
 - 一个是可以先判断hashcode是否一样，不一样，直接返回false，一样再进行equals判断。尽量减少equals调用
-  
-  
 
 - 还有一个比较简单的方法，就是先不进行equals判断item数据是否一致了，既然是用户的数据，这个数据都是保存到数据库的，而操作数据库的是后端。在后端操作用户数据更新的时候，保存一个时间戳，返回列表数据的时候带上时间戳，在这里判断时间戳是否一致就行了，如果不一致表示item数据不一样了（建议）
 
@@ -530,5 +514,3 @@ item
         return timestamp == c2CInfo.timestamp;
     }
 ```
-
-
