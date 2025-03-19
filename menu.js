@@ -22,7 +22,11 @@ menuConfig = {
                      "id": "myers",
                      "title": "myers白话文",
                      "file": "posts/view/myers原理.md"
-                },
+                },{
+                     "id": "ListAdapter",
+                     "title": "ListAdapter",
+                     "file": "posts/view/ListAdapter.md"
+                 },
             ],
         },
         {
