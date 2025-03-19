@@ -444,3 +444,91 @@ mMaxScheduledGeneration。这里的recyclerview1.2.1没有进行原子性操作�
 子线程实则是开启了一个线程池，两个固定线程，如果有多的任务进入LinkedBlockingQueue队列。
 
 
+
+
+
+
+
+顺带提一口，这里有一个点，这里用到了算法，虽然说是比较高效的差分算法。但是每次数据改变都会进行两个数据集合的计算。在列表数据量比较多的情况下，会消耗cpu资源
+
+
+
+item
+
+![](/Users/mac/Desktop/blog/diffUtil/img/item.png)
+
+
+
+已经放不下了，这个item内容不用管它，item里面有的是互斥隐藏显示的，这里只是为了证明内容多
+
+
+
+我项目中的item大量equals判断
+
+
+
+```java
+  @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof V2ConversationC2CInfo)) return false;
+        V2ConversationC2CInfo c2CInfo = (V2ConversationC2CInfo) o;
+        return intimacyRelation == c2CInfo.intimacyRelation
+                && isShowIntimacy == c2CInfo.isShowIntimacy
+                && Double.compare(c2CInfo.intimacyNumber, intimacyNumber) == 0
+                && isNewUser == c2CInfo.isNewUser
+                && onLine == c2CInfo.onLine
+                && replyRewardEndTime == c2CInfo.replyRewardEndTime
+                && Objects.equals(relationSource, c2CInfo.relationSource)
+                && Objects.equals(city, c2CInfo.city)
+                && Objects.equals(ageCity, c2CInfo.ageCity)
+                && Objects.equals(vpRoomId, c2CInfo.vpRoomId)
+                && Objects.equals(videoUrl, c2CInfo.videoUrl)
+                && Objects.equals(note, c2CInfo.note)
+                && Objects.equals(nobleIcon, c2CInfo.nobleIcon)
+                && Objects.equals(avatarFrame, c2CInfo.avatarFrame)
+                && Objects.equals(nameColor, c2CInfo.nameColor)
+                && Objects.equals(dayRecommend, c2CInfo.dayRecommend)
+                && goldStar == c2CInfo.goldStar
+                && Objects.equals(provinceName,c2CInfo.provinceName)
+                && createdAt == c2CInfo.createdAt
+                && Objects.equals(sex,c2CInfo.sex)
+                && payUser == c2CInfo.payUser
+                && Objects.equals(channel,c2CInfo.channel)
+                && (distance!=null  && distance == c2CInfo.distance)
+                && Objects.equals(userType,c2CInfo.userType)
+                && Objects.equals(nickName,c2CInfo.nickName)
+                && isShowVipTag == c2CInfo.isShowVipTag
+                && Objects.equals(tips,c2CInfo.getTips())
+                && wealthLevel == c2CInfo.wealthLevel
+                && isGuard == c2CInfo.isGuard
+                && TextUtils.equals(countryCity,c2CInfo.countryCity)
+                && intimacyNumber == c2CInfo.intimacyNumber
+                && TextUtils.equals(medalIcon,c2CInfo.medalIcon);
+
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(intimacyRelation, isShowIntimacy, intimacyNumber, relationSource, isNewUser, onLine, city, ageCity, vpRoomId, videoUrl, note, replyRewardEndTime, nobleIcon, avatarFrame, nameColor, goldStar, dayRecommend,provinceName,createdAt,sex,payUser,channel,distance,userType,nickName,isShowVipTag,wealthLevel,countryCity,intimacyNumber,medalIcon,isGuard);
+    }
+```
+
+对于社交聊天拍拖软件来说，刚刚上线的时候，系统会自动拿在线用户自动发送招呼语，导致会话最后一条消息改变，会导致频繁触发列表判断，并且这个时候如果有人发送礼物过来，需要播放礼物动效（svga，mp4礼物动效等）。这些同时触发的话，会导致cpu占用率高，爆满的时候也会有卡顿效果，cpu处理不过来，会掉帧。实则优化点就是处理这些euqals判断。
+
+怎么处理
+
+- 一个是可以先判断hashcode是否一样，不一样，直接返回false，一样再进行equals判断。尽量减少equals调用
+  
+  
+
+- 还有一个比较简单的方法，就是先不进行equals判断item数据是否一致了，既然是用户的数据，这个数据都是保存到数据库的，而操作数据库的是后端。在后端操作用户数据更新的时候，保存一个时间戳，返回列表数据的时候带上时间戳，在这里判断时间戳是否一致就行了，如果不一致表示item数据不一样了（建议）
+
+```java
+   @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof V2ConversationC2CInfo)) return false;
+        V2ConversationC2CInfo c2CInfo = (V2ConversationC2CInfo) o;
+        return timestamp == c2CInfo.timestamp;
+    }
+```
+
+
